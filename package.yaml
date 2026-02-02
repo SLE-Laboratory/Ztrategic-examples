@@ -1,0 +1,64 @@
+name: Ztrategic-examples
+version: "1.0"
+
+# ghc-options: -Wall
+
+dependencies:
+  - base > 4.14 # > 4.4 && < 4.14
+  - syz
+  - syb
+  - Ztrategic
+  - ZipperAG
+  - Strafunski-StrategyLib
+  - haskell-src
+  - haskell-src-exts
+  - mtl
+  - transformers
+  - random
+  - QuickCheck
+  - template-haskell
+  - state-plus
+  - monadplus
+#  - HaLeX
+#  - criterion
+#  - uulib
+#  - bytestring
+
+ 
+executables:
+  Examples:
+    main:                Examples.Examples
+    source-dirs:         .
+    ghc-options:
+    - -O2
+    - -main-is Examples
+    - -no-keep-hi-files
+    - -no-keep-o-files
+    - -ignore-dot-ghci 
+    - -ghci-script .ghci
+    when:
+    - condition: false
+      other-modules: 
+        - Examples.Smells.Inputs.Gathers_25
+        - Examples.Smells.Inputs.Gathers_50
+        - Examples.Smells.Inputs.Gathers_75
+        - Examples.Smells.Inputs.Gathers_100
+        - Examples.Smells.Inputs.Gathers_125
+        - Examples.Smells.Inputs.Gathers_150
+        - Examples.Smells.Inputs.Gathers_175
+        - Examples.Smells.Inputs.Gathers_200
+        - Examples.Smells.Inputs.Gathers_225
+        - Examples.Smells.Inputs.Gathers_250
+        - Examples.Smells.Inputs.Gathers_275
+        - Examples.Smells.Inputs.Gathers_300
+        - Examples.Smells.Inputs.Gathers_325
+        - Examples.Smells.Inputs.Gathers_350
+        - Examples.Smells.Inputs.Gathers_375
+        - Examples.Smells.Inputs.Gathers_400
+        - Examples.Smells.Inputs.Gathers_425
+        - Examples.Smells.Inputs.Gathers_450
+        - Examples.Smells.Inputs.Gathers_475
+        - Examples.Smells.Inputs.Gathers_500
+        - Scopes.GeneratedHalex
+        - Examples.Let.SharedAG
+#        - Ignore.AGMaker

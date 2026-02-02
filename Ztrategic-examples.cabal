@@ -1,0 +1,92 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.36.0.
+--
+-- see: https://github.com/sol/hpack
+
+name:           Ztrategic-examples
+version:        1.0
+license:        MIT
+license-file:   LICENSE
+build-type:     Simple
+
+executable Examples
+  main-is: Examples/Examples.hs
+  other-modules:
+      AGMaker.AGMaker
+      Examples.Let.Benchmark
+      Examples.Let.Clearing.LetMemoZtrategic
+      Examples.Let.Clearing.ZtrategicPlayground
+      Examples.Let.Let_Zippers
+      Examples.Let.LetAG
+      Examples.Let.LetGenerator
+      Examples.Let.LetGeneratorMemo
+      Examples.Let.LetMemo
+      Examples.Let.LetMemoZtrategic
+      Examples.Let.LetMemoZtrategicS
+      Examples.Let.LetMisc
+      Examples.Let.LetProperty
+      Examples.Let.LetPropertyMemo
+      Examples.Let.LetZtrategic
+      Examples.Let.LetZtrategicState
+      Examples.Let.Main
+      Examples.Let.Pretty
+      Examples.Let.PrettyMemo
+      Examples.Let.Shared
+      Examples.PrettyPrinting.Core
+      Examples.PrettyPrinting.Interface
+      Examples.PrettyPrinting.Memo.Core
+      Examples.PrettyPrinting.Memo.Interface
+      Examples.PrettyPrinting.Memo.Pretty
+      Examples.PrettyPrinting.Memo.SharedMemo
+      Examples.PrettyPrinting.Pretty
+      Examples.PrettyPrinting.Shared
+      Examples.PrettyPrinting.SharedAG
+      Examples.RepMin.Benchmark
+      Examples.RepMin.RepMinAG
+      Examples.RepMin.RepMinGenerator
+      Examples.RepMin.RepMinMemo
+      Examples.RepMin.RepMinProperty
+      Examples.RepMin.RepMinTUTP
+      Examples.RepMin.RepMinTUTP_Strafunski
+      Examples.RepMin.RepMinZtrategic
+      Examples.RepMin.RepMinZtrategicS
+      Examples.RepMin.Shared
+      Examples.RepMin.SharedAG
+      Examples.Smells.Benchmark
+      Examples.Smells.Common
+      Examples.Smells.Smells
+      Examples.Smells.SmellsStrafunski
+      Examples.Smells.SmellsTerminals
+      GeneratedAG
+      Scopes.Block.Shared
+      Scopes.Block.SharedAG
+      Scopes.BlockA68
+      Scopes.BlockC
+      Scopes.Haskell_Interface
+      Scopes.HaskellProperty
+      Scopes.IScopes
+      Testing.Benchmark
+      Testing.LetMemo
+      Testing.RepMinMemo
+      Paths_Ztrategic_examples
+  hs-source-dirs:
+      ./
+  ghc-options: -O2 -main-is Examples -no-keep-hi-files -no-keep-o-files -ignore-dot-ghci -ghci-script .ghci -main-is Examples.Examples
+  build-depends:
+      QuickCheck
+    , Strafunski-StrategyLib
+    , ZipperAG
+    , Ztrategic
+    , base >4.14
+    , haskell-src
+    , haskell-src-exts
+    , monadplus
+    , mtl
+    , random
+    , state-plus
+    , syb
+    , syz
+    , template-haskell
+    , transformers
+  default-language: Haskell2010
