@@ -1,5 +1,5 @@
 {-#LANGUAGE TemplateHaskell#-}
-module Examples.RepMin.RepMinProperty where 
+module Examples.RepMin.RepMinProperty where
 
 import Examples.RepMin.Shared
 import Examples.RepMin.RepMinAG
@@ -20,7 +20,7 @@ import Language.StrategicData (StrategicData)
 -- --------
 
 forallNodes :: (Typeable a, Data b, StrategicData b) => (a -> Zipper b -> [Property]) -> b -> Property
-forallNodes p ast = let 
+forallNodes p ast = let
      astZipper = toZipper ast
      step = failTU `adhocTUZ` p
      props = applyTU (full_tdTU step) astZipper
@@ -28,7 +28,7 @@ forallNodes p ast = let
 
 
 existsNode :: (Typeable a, Data b, StrategicData b) => (a -> Zipper b -> [Property]) -> b -> Property
-existsNode p ast = let 
+existsNode p ast = let
      astZipper = toZipper ast
      step = failTU `adhocTUZ` p
      props = applyTU (full_tdTU step) astZipper
@@ -36,11 +36,11 @@ existsNode p ast = let
 
 
 prop_count_2 :: Tree -> Bool
-prop_count_2 ast = count (toZipper t) 
+prop_count_2 ast = count (toZipper t)
     == count (toZipper (replace (toZipper t)))
 
 prop_count :: Tree -> Property
-prop_count ast = property (count (toZipper t) 
+prop_count ast = property (count (toZipper t)
     == count (toZipper (replace (toZipper t))))
 
 -- for any node, locmin >= globmin
@@ -64,7 +64,7 @@ globminIsSmaller _          _ = []
 prop_resultingInOriginal :: Tree -> Property
 prop_resultingInOriginal ast = forallNodes intInOriginal (replace $ toZipper ast)
  where intInOriginal :: Int -> Zipper Tree -> [Property]
-       intInOriginal i _ = return $ existsNode equal ast 
+       intInOriginal i _ = return $ existsNode equal ast
         where equal j _ = return $ property $ i == j
 
 
@@ -80,13 +80,13 @@ countLeaves (Leaf _) = 1
 
 -- globmin of resulting tree is the same as globmin of original tree 
 prop_globminPreserved :: Tree -> Property
-prop_globminPreserved t = let t' = toZipper t 
+prop_globminPreserved t = let t' = toZipper t
                           in property $ globmin t' == globmin (toZipper $ replace t')
 
 
 -- globmin is in the tree
 prop_globminInTree :: Tree -> Property
-prop_globminInTree ast = existsNode isGlobmin ast 
+prop_globminInTree ast = existsNode isGlobmin ast
 
 isGlobmin :: Tree -> Zipper Tree -> [Property]
 isGlobmin (Leaf n) z = [property (n == globmin z)]
@@ -94,12 +94,12 @@ isGlobmin _ _ = []
 
 
 -- trees are isomorphic before and after replace
-isomorphic :: Tree -> Tree -> Bool 
-isomorphic (Leaf _) (Leaf _) = True 
-isomorphic (Root x) (Root y) = isomorphic x y 
-isomorphic (Fork l1 r1) (Fork l2 r2) = 
+isomorphic :: Tree -> Tree -> Bool
+isomorphic (Leaf _) (Leaf _) = True
+isomorphic (Root x) (Root y) = isomorphic x y
+isomorphic (Fork l1 r1) (Fork l2 r2) =
         isomorphic l1 l2 && isomorphic r1 r2
-isomorphic _ _ = False 
+isomorphic _ _ = False
 
 prop_isomorphic :: Tree -> Property
 prop_isomorphic t = property (isomorphic t (replace (toZipper t)))
@@ -107,16 +107,16 @@ prop_isomorphic t = property (isomorphic t (replace (toZipper t)))
 
 -- applying replace once and twice is the same
 prop_idempotent :: Tree -> Property
-prop_idempotent t = 
-    property (replace (toZipper t) == 
+prop_idempotent t =
+    property (replace (toZipper t) ==
     replace (toZipper (replace (toZipper t))))
 
 
 -- all values on tree produced by replace are the same
 prop_allEqual :: Tree -> Property
-prop_allEqual ast = let x = replace (toZipper ast) in 
+prop_allEqual ast = let x = replace (toZipper ast) in
     forallNodes (iter1 x) x
- 
+
 iter1 x (Leaf n1) _ = [forallNodes (iter2 n1) x]
 iter1 _ _ _ = []
 
