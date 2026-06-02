@@ -74,7 +74,8 @@ genRootCirc = sized (\n -> mdo
 
 genLetCirc :: Int -> Zipper Root -> Gen Let
 genLetCirc n z = do
-    randomV <- choose (1, max 1 n)
+    -- randomV <- choose (1, max 1 n)
+    let randomV = n
     zList <- genListCirc randomV (z.$1)
     zExp <- genExpCirc (z.$2)
     return (Let zList zExp)

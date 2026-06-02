@@ -13,8 +13,8 @@ import Language.ZipperAG
 import Examples.Let.LetMemo
 import Language.Memo.AGMemo
 
-instance Arbitrary S.Root where
-    arbitrary = genRootCirc
+-- instance Arbitrary S.Root where
+--     arbitrary = genRootCirc
 
 instance Arbitrary (Let MemoTable) where
     arbitrary = genRootCircMemo
@@ -38,7 +38,8 @@ genRootCircMemo = sized (\n -> mdo
 
 genLetCirc :: Int -> Zipper (Let MemoTable) -> Gen (Let MemoTable, Zipper (Let MemoTable))
 genLetCirc n z = do
-    randomV <- choose (1, max 1 n)
+    -- randomV <- choose (1, max 1 n)
+    let randomV = n
     (zList, z') <- genListCirc randomV .:@:. (z.$1)
     (zExp, z'') <- genExpCirc .:@:. (z'.$2)
     let newNode = Let zList zExp emptyMemo
