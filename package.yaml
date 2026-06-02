@@ -20,7 +20,7 @@ dependencies:
   - state-plus
   - monadplus
 #  - HaLeX
-#  - criterion
+  - criterion
 #  - uulib
 #  - bytestring
 
@@ -31,7 +31,7 @@ executables:
     source-dirs:         .
     ghc-options:
     - -O2
-    - -main-is Examples
+    - -main-is Examples.Examples
     - -no-keep-hi-files
     - -no-keep-o-files
     - -ignore-dot-ghci 

@@ -18,8 +18,8 @@
 # resolver: ./custom-snapshot.yaml
 # resolver: https://example.com/snapshots/2018-01-01.yaml
 #resolver: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/16/31.yaml
-#resolver: lts-21.1
-resolver: ghc-9.4.7
+resolver: lts-21.21
+#resolver: ghc-9.4.7
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -52,16 +52,16 @@ extra-deps:
   - Strafunski-StrategyLib-5.0.1.0
   - mtl-2.2.2
   - transformers-0.5.6.2
-  - QuickCheck-2.15
+  - QuickCheck-2.14.3
   - template-haskell-2.19.0.0
 #  - HaLeX-1.2.6
-#  - criterion-1.5.11.0
+  - criterion-1.6.1.0
 #  - js-chart-2.9.4.1
 #  - uulib-0.9.24
   - random-1.2.1.2
-  - splitmix-0.1.0.5
+#  - splitmix-0.1.0.5
   - syb-0.7.2.4
-  - happy-1.20.1.1
+#  - happy-1.20.1.1
   - monadplus-1.4.3
   - state-plus-0.1.3
 
