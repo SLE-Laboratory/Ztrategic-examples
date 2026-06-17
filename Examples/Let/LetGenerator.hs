@@ -59,7 +59,7 @@ genExp names = frequency $ [
        else [(50, Var <$> elements names)]
 
 genName :: Gen Name
-genName = vectorOf 2 $ choose ('a', 'z')
+genName = vectorOf 4 $ choose ('a', 'z')
 
 ---
 --- Instead we attempt circularity

@@ -130,4 +130,4 @@ genExpCirc' z =
 --- Auxiliary
 -----
 genName :: Gen S.Name
-genName = vectorOf 2 $ choose ('a', 'z')
+genName = vectorOf 4 $ choose ('a', 'z')
