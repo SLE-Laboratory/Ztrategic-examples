@@ -1,6 +1,6 @@
 {-# LANGUAGE RecursiveDo #-}
 module Examples.Let.LetGenerator where
-import Test.QuickCheck
+import Test.QuickCheck hiding (shrinkList)
 import Examples.Let.Shared
 import Data.Generics.Zipper
 import Examples.Let.Let_Zippers
@@ -13,6 +13,7 @@ instance Arbitrary Root where
 -- if we want faulty generation, we must swap uses of genExpCirc into genExpCirc'
 --    arbitrary = (genCircFaulty 3) 
     arbitrary = genRootCirc 
+    shrink    = shrinkRoot
 
 instance Arbitrary Let where
     arbitrary = sized $ genLet []
@@ -264,3 +265,41 @@ genSafeExp = frequency [
                     (25, Sub   <$> genSafeExp <*> genSafeExp),
                     (50, Neg   <$> genSafeExp),
                     (50, Const <$> arbitrary)]
+
+
+---------------
+---------------
+---------------
+---------------
+--------- Below we define the shrink function 
+---------------
+---------------
+---------------
+---------------
+
+shrinkRoot :: Root -> [Root]
+shrinkRoot (Root l) = [Root l' | l' <- shrinkLet l ]
+
+shrinkLet :: Let -> [Let]
+shrinkLet (Let l e) = [ Let l' e' | l' <- shrinkList l , e' <- shrinkExp e ]
+
+shrinkList :: List -> [List]
+shrinkList EmptyList = [] 
+shrinkList (NestedLet n l lst) = [ NestedLet n' l' EmptyList
+                                 | n' <- shrink n , l' <- shrinkLet l ] 
+                                 ++ shrinkList lst
+shrinkList (Assign    n e lst) = [ Assign n e EmptyList
+                                 | n' <- shrink n , e' <- shrinkExp e ] 
+                                 ++ shrinkList lst
+
+shrinkExp :: Exp -> [Exp]
+shrinkExp (Add e1 e2)   = [e1, e2] ++
+                          [Add e1' e2  | e1' <- shrinkExp e1] ++
+                          [Add e1 e2'  | e2' <- shrinkExp e2]
+shrinkExp (Sub e1 e2)   = [e1, e2] ++
+                          [Sub e1' e2  | e1' <- shrinkExp e1] ++
+                          [Sub e1 e2'  | e2' <- shrinkExp e2]
+shrinkExp (Neg e)       = [e] ++
+                          [Neg e'      | e'  <- shrinkExp e] 
+shrinkExp (Var n)       = [Var n'      | n'  <- shrink n ]
+shrinkExp (Const c)     = [Const c'    | c'  <- shrink c ]
