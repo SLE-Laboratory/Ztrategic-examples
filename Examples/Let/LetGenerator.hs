@@ -12,7 +12,7 @@ import Language.ZipperAG
 instance Arbitrary Root where
 -- if we want faulty generation, we must swap uses of genExpCirc into genExpCirc'
 --    arbitrary = (genCircFaulty 3) 
-    arbitrary = genRootCirc 
+    arbitrary = genRootCirc
     shrink    = shrinkRoot
 
 instance Arbitrary Let where
