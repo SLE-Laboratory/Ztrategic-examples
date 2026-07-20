@@ -57,7 +57,8 @@ instance Show List where
        show (NestedLet s l r)    =  s ++ " = " ++ aaa ++ show r
               where a = lines (show l)
                     aa = (head a) : (map ( take (3 + length s) (repeat ' ') ++) $ tail a)
-                    aaa = unlines aa
+                    -- aaa = unlines aa
+                    aaa = if null a then "" else unlines aa
        show (Assign s e l) =  s ++ " = " ++ show e ++ "\n" ++ show l
        show EmptyList          = ""
 
