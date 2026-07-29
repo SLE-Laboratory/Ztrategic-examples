@@ -11,11 +11,6 @@ import Language.ZipperAG
 import Examples.Let.LetShrink
 
 instance Arbitrary Root where
-<<<<<<< HEAD
--- if we want faulty generation, we must swap uses of genExpCirc into genExpCirc'
---    arbitrary = (genCircFaulty 3) 
-=======
->>>>>>> fe99cddf736490cc3ee988d6d9fd124f1d962535
     arbitrary = genRootCirc
     shrink    = shrinkRoot
 
@@ -64,6 +59,14 @@ genExp names = frequency $ [
 
 genName :: Gen Name
 genName = vectorOf 4 $ choose ('a', 'z')
+
+genNameNotInEnv :: [Name] -> Gen Name
+genNameNotInEnv names = do
+    n <- genName
+    if n `elem` names then genNameNotInEnv names else return n
+
+genNameInEnv :: [Name] -> Gen Name
+genNameInEnv = elements
 
 ---
 --- Instead we attempt circularity

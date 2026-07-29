@@ -40,7 +40,7 @@ genAssignCirc :: Int -> Zipper Root -> Gen List
 genAssignCirc n z =  do
     name <- genName `suchThat` flip notElem (map (\(a,b,c) -> a) $ dcli z)
     -- name <- genName `suchThat` flip notElem (map fst $ dcliBlock z)
-    nExp <- genExpCirc (z.$2)
+    nExp <- genExpCirc (z.$2) -- TODO: name can't be used in exp
     list <- genListCirc (n-1) (z.$3)
     return $ Assign name nExp list
 
@@ -59,11 +59,22 @@ genExpCirc z =
     in frequency [
                   (1, Add   <$> genExpCirc (z.$1) <*> genExpCirc (z.$2)),
                   (1, Sub   <$> genExpCirc (z.$1) <*> genExpCirc (z.$2)),
-                  (5, Neg   <$> genExpCirc (z.$1)),
+                  (1, Neg   <$> genExpCirc (z.$1)),
                   (5, Const <$> arbitrary),
-                  (5, Var <$> frequency [(90, elements decls), 
+                  (5, Var <$> frequency [(90, genNameInEnv decls), 
                                          -- (10, listOf1 (choose ('a', 'z')) `suchThat` flip notElem decls)])]
-                                         (10, vectorOf 10 (choose ('X', 'X')) `suchThat` flip notElem decls)])]
+                                         (10, genNameNotInEnv decls)])]
 
 genName :: Gen Name
-genName = vectorOf 4 $ choose ('a', 'z')
+genName = do
+    i <- choose (1, 5)
+    vectorOf i $ choose ('a', 'z')
+
+
+genNameNotInEnv :: [Name] -> Gen Name
+genNameNotInEnv names = do
+    n <- genName
+    if n `elem` names then genNameNotInEnv names else return n
+
+genNameInEnv :: [Name] -> Gen Name
+genNameInEnv = elements
