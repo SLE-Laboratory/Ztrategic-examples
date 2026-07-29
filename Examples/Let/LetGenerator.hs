@@ -8,10 +8,14 @@ import Control.Monad ((>=>))
 import Data.Data (cast)
 import Data.Maybe (fromJust)
 import Language.ZipperAG
+import Examples.Let.LetShrink
 
 instance Arbitrary Root where
+<<<<<<< HEAD
 -- if we want faulty generation, we must swap uses of genExpCirc into genExpCirc'
 --    arbitrary = (genCircFaulty 3) 
+=======
+>>>>>>> fe99cddf736490cc3ee988d6d9fd124f1d962535
     arbitrary = genRootCirc
     shrink    = shrinkRoot
 
@@ -59,7 +63,7 @@ genExp names = frequency $ [
        else [(50, Var <$> elements names)]
 
 genName :: Gen Name
-genName = vectorOf 2 $ choose ('a', 'z')
+genName = vectorOf 4 $ choose ('a', 'z')
 
 ---
 --- Instead we attempt circularity
@@ -76,7 +80,7 @@ genRootCirc = sized (\n -> mdo
 genLetCirc :: Int -> Zipper Root -> Gen Let
 genLetCirc n z = do
     -- randomV <- choose (1, max 1 n)
-    let randomV = n
+    let randomV = max 1 n
     zList <- genListCirc randomV (z.$1)
     zExp <- genExpCirc (z.$2)
     return (Let zList zExp)
@@ -115,18 +119,6 @@ genExpCirc z =
                   (5, Neg   <$> genExpCirc (z.$1)),
                   (5, Const <$> arbitrary),
                   (5, Var <$> elements decls)]
-
-genExpCirc' :: Zipper Root -> Gen Exp
-genExpCirc' z =
-    let decls = map (\(a,b,c) -> a) $ env z
-    in frequency [
-                  (1, Add   <$> genExpCirc' (z.$1) <*> genExpCirc' (z.$2)),
-                  (1, Sub   <$> genExpCirc' (z.$1) <*> genExpCirc' (z.$2)),
-                  (5, Neg   <$> genExpCirc' (z.$1)),
-                  (5, Const <$> arbitrary),
-                  (5, Var <$> frequency [(90, elements decls), 
-                                         -- (10, listOf1 (choose ('a', 'z')) `suchThat` flip notElem decls)])]
-                                         (10, vectorOf 10 (choose ('X', 'X')) `suchThat` flip notElem decls)])]
 
 
 ---------------
@@ -265,42 +257,3 @@ genSafeExp = frequency [
                     (25, Sub   <$> genSafeExp <*> genSafeExp),
                     (50, Neg   <$> genSafeExp),
                     (50, Const <$> arbitrary)]
-
-
----------------
----------------
----------------
----------------
---------- Below we define the shrink function 
----------------
----------------
----------------
----------------
-
-shrinkRoot :: Root -> [Root]
-shrinkRoot (Root l) = [Root l' | l' <- shrinkLet l ]
-
-shrinkLet :: Let -> [Let]
-shrinkLet (Let l e) = [ Let l' e' | l' <- shrinkList l , e' <- shrinkExp e ]
-
-shrinkList :: List -> [List]
-shrinkList EmptyList = [] 
-shrinkList (NestedLet n l lst) = [ NestedLet n' l' EmptyList
-                                 | n' <- shrink n , l' <- shrinkLet l , not (null n')  ] 
-                                 ++ shrinkList lst
-shrinkList (Assign    n e lst) = [ Assign n' e' EmptyList
-                                 | n' <- shrink n , e' <- shrinkExp e , not (null n')  ] 
-                                 ++ shrinkList lst
-
-shrinkExp :: Exp -> [Exp]
-shrinkExp (Add e1 e2)   = [e1, e2] ++
-                          [Add e1' e2  | e1' <- shrinkExp e1] ++
-                          [Add e1 e2'  | e2' <- shrinkExp e2]
-shrinkExp (Sub e1 e2)   = [e1, e2] ++
-                          [Sub e1' e2  | e1' <- shrinkExp e1] ++
-                          [Sub e1 e2'  | e2' <- shrinkExp e2]
-shrinkExp (Neg e)       = [e] ++
-                          [Neg e'      | e'  <- shrinkExp e] 
-shrinkExp (Var n)       = [Var n'      | n'  <- shrink n
-                                       , not (null n')     ]
-shrinkExp (Const c)     = [Const c'    | c'  <- shrink c ]

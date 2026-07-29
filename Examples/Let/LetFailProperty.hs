@@ -1,5 +1,5 @@
 {-#LANGUAGE TemplateHaskell#-}
-module Examples.Let.LetProperty where
+module Examples.Let.LetFailProperty where
 
 import Language.Ztrategic
 import Data.Data (Typeable, Data)
@@ -16,7 +16,7 @@ import Examples.Let.Let_Zippers
 import Examples.Let.LetZtrategic
 import Examples.Let.LetAG (circ)
 import Language.ZipperAG
-import Examples.Let.LetGenerator
+import Examples.Let.LetFaultyGenerator
 
 forallNodes :: (Typeable a, Data b, StrategicData b) => (a -> Zipper b -> [Property]) -> b -> Property
 forallNodes p ast = let 
