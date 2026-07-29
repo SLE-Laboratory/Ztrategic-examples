@@ -19,22 +19,6 @@ import Language.StrategicData (StrategicData)
 -- --
 -- --------
 
-forallNodes :: (Typeable a, Data b, StrategicData b) => (a -> Zipper b -> [Property]) -> b -> Property
-forallNodes p ast = let
-     astZipper = toZipper ast
-     step = failTU `adhocTUZ` p
-     props = applyTU (full_tdTU step) astZipper
-    in conjoin props
-
-
-existsNode :: (Typeable a, Data b, StrategicData b) => (a -> Zipper b -> [Property]) -> b -> Property
-existsNode p ast = let
-     astZipper = toZipper ast
-     step = failTU `adhocTUZ` p
-     props = applyTU (full_tdTU step) astZipper
-    in disjoin props
-
-
 prop_count_2 :: Tree -> Bool
 prop_count_2 ast = count (toZipper t)
     == count (toZipper (replace (toZipper t)))

@@ -52,7 +52,7 @@ genExp :: [Name] -> Gen Exp
 genExp names = frequency $ [
     (25, Add   <$> genExp names <*> genExp names),
     (25, Sub   <$> genExp names <*> genExp names),
-    (50, Neg   <$> genExp names),
+    (20, Neg   <$> genExp names),
     (50, Const <$> arbitrary)]
     ++ if null names then []
        else [(50, Var <$> elements names)]
