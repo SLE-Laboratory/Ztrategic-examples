@@ -214,3 +214,42 @@ errs_uses ag = case constructor ag of
            CVar       -> mBIn (lexeme_Var ag) (env ag)
            CAssign    -> errs_uses (ag.$2) ++ errs_uses (ag.$3)
            CNestedLet -> errs_uses (ag.$2) ++ errs_uses (ag.$3)
+
+
+-- --------
+-- --
+-- - Compute the AST with embedded errors
+-- --
+-- --------
+
+letErrsRoot :: Zipper a -> Root
+letErrsRoot ag = case constructor ag of
+      CRoot      -> Root (letErrsLet (ag.$1))
+
+
+letErrsLet :: Zipper a -> Let
+letErrsLet ag = case constructor ag of
+      CLet      -> Let (letErrsList (ag.$1)) (letErrsExp (ag.$2))
+
+
+letErrsList :: Zipper a -> List
+letErrsList ag = case constructor ag of
+      CAssign    -> let e = mBIn (lexeme_Assign ag) (env ag)
+                    in if null e then Assign (lexeme_Assign ag) (letErrsExp (ag.$2)) (letErrsList (ag.$3))
+                    else Assign (lexeme_Assign ag ++ " <-ERROR") (letErrsExp (ag.$2)) (letErrsList (ag.$3))
+      CNestedLet -> let e = mBIn (lexeme_NestedLet ag) (env ag)
+                    in if null e then NestedLet (lexeme_NestedLet ag) (letErrsLet (ag.$2)) (letErrsList (ag.$3))
+                    else NestedLet (lexeme_NestedLet ag ++ " <-ERROR") (letErrsLet (ag.$2)) (letErrsList (ag.$3))
+      CEmptyList -> EmptyList
+
+
+letErrsExp :: Zipper a -> Exp
+letErrsExp ag = case constructor ag of
+      CAdd       -> Add (letErrsExp (ag.$1)) (letErrsExp (ag.$2))
+      CSub       -> Sub (letErrsExp (ag.$1)) (letErrsExp (ag.$2))
+      CNeg       -> Neg (letErrsExp (ag.$1))
+      CConst     -> Const (lexeme_Const ag)
+      CVar       -> let e = mBIn (lexeme_Var ag) (env ag)
+                    in if null e then Var (lexeme_Var ag)
+                    else Var (lexeme_Var ag ++ " <-ERROR")
+           

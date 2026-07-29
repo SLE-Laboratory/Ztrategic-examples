@@ -47,7 +47,8 @@ prop_errors t = counterexample ("Errs: " ++ show (errs (toZipper t))) $
 
 -- all vars must be in environment
 prop_nameInEnv :: Root -> Property
-prop_nameInEnv t = forallNodes oneNameInEnv t 
+-- prop_nameInEnv t = forallNodes oneNameInEnv t
+prop_nameInEnv t = counterexample (show $ letErrsRoot (toZipper t)) $ forallNodes oneNameInEnv t 
 
 oneNameInEnv :: Exp -> Zipper Root -> [Property]
 oneNameInEnv (Var v) z = [property (v `varIn` env z)]
