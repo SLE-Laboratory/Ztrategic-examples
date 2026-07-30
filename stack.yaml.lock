@@ -12,12 +12,12 @@ packages:
   original:
     hackage: syz-0.2.0.0
 - completed:
-    hackage: Ztrategic-0.2.0@sha256:38abbb4edc145b5e25a6eb9b217c72c89b809654b1d971ceeb58c4c954c93a1e,1715
+    hackage: Ztrategic-0.3.1@sha256:f2ac10985fff4becfc6bfabebd5e0b75ad56dc186449b2d59eea63cf6092e6fe,1747
     pantry-tree:
-      sha256: 641ea9b0e678662c8272e85427f4f4f4131508e20f2855705be7e167911c219c
+      sha256: 0263366b6464422ff0bfa56d7aa2829bb2e1a0dfa28f2d69a4545b1a0d08e24c
       size: 633
   original:
-    hackage: Ztrategic-0.2.0
+    hackage: Ztrategic-0.3.1
 - completed:
     hackage: ZipperAG-1.0.0@sha256:29db34f3d9d8f1b05f81ea27cc388a960a4c75f8893cde435c78410aefdb5aa0,2005
     pantry-tree:
@@ -61,12 +61,12 @@ packages:
   original:
     hackage: transformers-0.5.6.2
 - completed:
-    hackage: QuickCheck-2.15@sha256:39681745103da82b3d747ab49f3443982e595ba334517605e85ce3ef8ab0cec5,8743
+    hackage: QuickCheck-2.14.3@sha256:f03d2f404d5ba465453d0fbc1944832789a759fe7c4f9bf8616bc1378a02fde4,7847
     pantry-tree:
-      sha256: 65f652205d1f76fa3c8bbb6f03f4927609122f0d26240c2cf2e20f2575d75ebd
-      size: 2437
+      sha256: e920d61bcc10ef2aee0cc3e2a216d05b8491564ad27c1c5e2fbbb221b00b7f8e
+      size: 2315
   original:
-    hackage: QuickCheck-2.15
+    hackage: QuickCheck-2.14.3
 - completed:
     hackage: template-haskell-2.19.0.0@sha256:3e06c10b5813e88503196093e094140c6871ae3703a12a70024da755820b4d1a,2723
     pantry-tree:
@@ -75,6 +75,13 @@ packages:
   original:
     hackage: template-haskell-2.19.0.0
 - completed:
+    hackage: criterion-1.6.1.0@sha256:89b754b0a45f72e4ac2d3463eed3d3d70173db30bc981ec1be1e53534602b5c0,5400
+    pantry-tree:
+      sha256: 290c2de3301b87ac54eb864e02c0338582824077e9dbe2ff3a132620248fb682
+      size: 2398
+  original:
+    hackage: criterion-1.6.1.0
+- completed:
     hackage: random-1.2.1.2@sha256:32397de181e20ccaacf806ec70de9308cf044f089a2be37c936f3f8967bde867,6460
     pantry-tree:
       sha256: cd0fe2b39e4d4efad4d78f69c28b7fd49ffe2879923b3a9272352edc43a956e6
@@ -82,26 +89,12 @@ packages:
   original:
     hackage: random-1.2.1.2
 - completed:
-    hackage: splitmix-0.1.0.5@sha256:caa9b4a92abf1496c7f6a3c0f4e357426a54880077cb9f04e260a8bfa034b77b,6596
-    pantry-tree:
-      sha256: 6eb34b55fb0eb1c41fe539fb8ece181e31e82f4c89abf2b1aaf46df4b274797d
-      size: 1519
-  original:
-    hackage: splitmix-0.1.0.5
-- completed:
     hackage: syb-0.7.2.4@sha256:936d5a92084ad9d88c5a9dd2e622deab57ce48ce85be93e6273b3f8eb64c12ca,3872
     pantry-tree:
       sha256: 6c15efe240114f1104a5241a2b1f75f825e284cf118b6c66898c7b8fb0084043
       size: 3400
   original:
     hackage: syb-0.7.2.4
-- completed:
-    hackage: happy-1.20.1.1@sha256:a381633c5e8f9e9e5a8e1900930ce13172397b4677fcfcc08cd38eb3f73b61b1,5811
-    pantry-tree:
-      sha256: a5b8a3cd39ffabdf0deb31483eb97cc2c270083738ceeddff75a894a953f6b92
-      size: 8615
-  original:
-    hackage: happy-1.20.1.1
 - completed:
     hackage: monadplus-1.4.3@sha256:af44a5abdce229908e4ce92b27266a09551603c31048fd3b67a3d00f513bff9c,993
     pantry-tree:
@@ -116,4 +109,9 @@ packages:
       size: 328
   original:
     hackage: state-plus-0.1.3
-snapshots: []
+snapshots:
+- completed:
+    sha256: 7d4b649cf368f9076d8aa049aa44efe58950971d105892734e9957b2a26a2186
+    size: 640060
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/21/21.yaml
+  original: lts-21.21

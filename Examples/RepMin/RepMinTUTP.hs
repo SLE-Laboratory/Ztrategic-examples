@@ -179,7 +179,7 @@ number :: MonadState Int m => Tree -> m Tree
 number (Leaf _) = modify (+1) >> get >>= return . Leaf
 number v = return v
 
-{- 
+{-  tree w
          ^ 
        /   \
       ^     0
@@ -189,6 +189,7 @@ number v = return v
   0   0 
 
 becomes 
+    tree ww 
 
          ^ 
        /   \
@@ -198,3 +199,21 @@ becomes
    / \
   3   4 
 -}
+
+breadthFirstGathering :: Tree -> [Int]
+breadthFirstGathering t = 
+     let z = toZipper t 
+         Just r = applyTU (breadthFirst_tdTU step) z 
+         step = failTU `adhocTU` grabLeaf 
+     in r 
+
+grabLeaf :: Tree -> Maybe [Int]
+grabLeaf (Leaf n) = Just [n]
+grabLeaf _ = Nothing
+
+
+-- type-preserving breadth first 
+ww = breadthFirstNumbering w 
+
+-- type-unifying breadth first 
+l = breadthFirstGathering ww 

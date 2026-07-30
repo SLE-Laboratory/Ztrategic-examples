@@ -1,6 +1,6 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.36.0.
+-- This file has been generated from package.yaml by hpack version 0.38.1.
 --
 -- see: https://github.com/sol/hpack
 
@@ -14,11 +14,14 @@ executable Examples
   main-is: Examples/Examples.hs
   other-modules:
       AGMaker.AGMaker
+      Examples.ExamplesBAK
       Examples.Let.Benchmark
       Examples.Let.Clearing.LetMemoZtrategic
       Examples.Let.Clearing.ZtrategicPlayground
       Examples.Let.Let_Zippers
       Examples.Let.LetAG
+      Examples.Let.LetFailProperty
+      Examples.Let.LetFaultyGenerator
       Examples.Let.LetGenerator
       Examples.Let.LetGeneratorMemo
       Examples.Let.LetMemo
@@ -27,6 +30,7 @@ executable Examples
       Examples.Let.LetMisc
       Examples.Let.LetProperty
       Examples.Let.LetPropertyMemo
+      Examples.Let.LetShrink
       Examples.Let.LetZtrategic
       Examples.Let.LetZtrategicState
       Examples.Let.Main
@@ -45,8 +49,10 @@ executable Examples
       Examples.RepMin.Benchmark
       Examples.RepMin.RepMinAG
       Examples.RepMin.RepMinGenerator
+      Examples.RepMin.RepMinGeneratorMemo
       Examples.RepMin.RepMinMemo
       Examples.RepMin.RepMinProperty
+      Examples.RepMin.RepMinPropertyMemo
       Examples.RepMin.RepMinTUTP
       Examples.RepMin.RepMinTUTP_Strafunski
       Examples.RepMin.RepMinZtrategic
@@ -72,13 +78,14 @@ executable Examples
       Paths_Ztrategic_examples
   hs-source-dirs:
       ./
-  ghc-options: -O2 -main-is Examples -no-keep-hi-files -no-keep-o-files -ignore-dot-ghci -ghci-script .ghci -main-is Examples.Examples
+  ghc-options: -O2 -main-is Examples.Examples -no-keep-hi-files -no-keep-o-files -ignore-dot-ghci -ghci-script .ghci -main-is Examples.Examples
   build-depends:
       QuickCheck
     , Strafunski-StrategyLib
     , ZipperAG
     , Ztrategic
     , base >4.14
+    , criterion
     , haskell-src
     , haskell-src-exts
     , monadplus
