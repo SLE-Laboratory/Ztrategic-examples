@@ -1,6 +1,5 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.37.0.
 --
 -- see: https://github.com/sol/hpack
 
@@ -14,12 +13,12 @@ executable Examples
   main-is: Examples/Examples.hs
   other-modules:
       AGMaker.AGMaker
+      Examples.ExamplesBAK
       Examples.Let.Benchmark
       Examples.Let.Clearing.LetMemoZtrategic
       Examples.Let.Clearing.ZtrategicPlayground
       Examples.Let.Let_Zippers
       Examples.Let.LetAG
-      Examples.Let.LetAGProp
       Examples.Let.LetFailProperty
       Examples.Let.LetFaultyGenerator
       Examples.Let.LetGenerator
