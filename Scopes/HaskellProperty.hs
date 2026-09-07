@@ -7,7 +7,6 @@ import Language.Haskell.Parser
 
 import Data.Generics.Zipper
 
-import Examples.RepMin.RepMinProperty (forallNodes, existsNode)
 import Scopes.Haskell_Interface
 import Scopes.BlockA68
 -- import Language.Grammars.ZipperAG (parent)
