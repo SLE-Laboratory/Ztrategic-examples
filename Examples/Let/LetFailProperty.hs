@@ -18,20 +18,6 @@ import Examples.Let.LetAG (circ)
 import Language.ZipperAG
 import Examples.Let.LetFaultyGenerator
 
-forallNodes :: (Typeable a, Data b, StrategicData b) => (a -> Zipper b -> [Property]) -> b -> Property
-forallNodes p ast = let 
-     astZipper = toZipper ast
-     step = failTU `adhocTUZ` p
-     props = applyTU (full_tdTU step) astZipper
-    in conjoin props
-
-
-existsNode :: (Typeable a, Data b, StrategicData b) => (a -> Zipper b -> [Property]) -> b -> Property
-existsNode p ast = let 
-     astZipper = toZipper ast
-     step = failTU `adhocTUZ` p
-     props = applyTU (full_tdTU step) astZipper
-    in disjoin props
 
 -- --------
 -- --

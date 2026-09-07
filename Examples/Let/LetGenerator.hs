@@ -55,7 +55,7 @@ genExp names = frequency $ [
     (20, Neg   <$> genExp names),
     (50, Const <$> arbitrary)]
     ++ if null names then []
-       else [(50, Var <$> elements names)]
+       else [(50, Var <$> genNameInEnv names)]
 
 genName :: Gen Name
 genName = vectorOf 4 $ choose ('a', 'z')
@@ -121,7 +121,7 @@ genExpCirc z =
                   (1, Sub   <$> genExpCirc (z.$1) <*> genExpCirc (z.$2)),
                   (5, Neg   <$> genExpCirc (z.$1)),
                   (5, Const <$> arbitrary),
-                  (5, Var <$> elements decls)]
+                  (5, Var <$> genNameInEnv decls)]
 
 
 ---------------

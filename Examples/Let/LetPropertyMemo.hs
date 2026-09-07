@@ -21,20 +21,6 @@ import Language.ZipperAG
 import Examples.Let.LetMemo
 import Examples.Let.LetGeneratorMemo
 
-forallNodes :: (Typeable a, Data (d mm), Memoizable d mm, StrategicData (d mm)) => (a -> Zipper (d mm) -> ([Property], Zipper (d mm))) -> d mm -> Property
-forallNodes p ast = let 
-     astZipper = toZipper ast
-     step = failTU `adhocTUZ` p
-     (props, _) = applyTU (full_tdTU step) astZipper
-    in conjoin props
-
-
-existsNode :: (Typeable a, Data (d mm), Memoizable d mm, StrategicData (d mm)) => (a -> Zipper (d mm) -> ([Property], Zipper (d mm))) -> d mm -> Property
-existsNode p ast = let 
-     astZipper = toZipper ast
-     step = failTU `adhocTUZ` p
-     (props, _) = applyTU (full_tdTU step) astZipper
-    in disjoin props
 
 -- --------
 -- --

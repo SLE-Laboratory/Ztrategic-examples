@@ -102,7 +102,7 @@ genExpCirc z =
                         let newNode = Const r emptyMemo :: Let MemoTable
                         return (newNode, setHole newNode z)),
                   (5, do 
-                        r <- elements decls 
+                        r <- genNameInEnv decls
                         let newNode = Var r emptyMemo :: Let MemoTable 
                         return (newNode, setHole newNode z))
                   ]
@@ -131,3 +131,11 @@ genExpCirc' z =
 -----
 genName :: Gen S.Name
 genName = vectorOf 4 $ choose ('a', 'z')
+
+genNameNotInEnv :: [S.Name] -> Gen S.Name
+genNameNotInEnv names = do
+    n <- genName
+    if n `elem` names then genNameNotInEnv names else return n
+
+genNameInEnv :: [S.Name] -> Gen S.Name
+genNameInEnv = elements
